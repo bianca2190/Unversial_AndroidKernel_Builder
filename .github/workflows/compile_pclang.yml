@@ -23,23 +23,23 @@ on:
         default: 'false'
       kernelsu:
         description: 'Compile KernelSU'
-        required: false
+        required: true
         default: 'false'
 
 env:
   UPLOAD_BIN_DIR: true
   UPLOAD_RELEASE: true
-  REPO_URL: <your repo>
-  REPO_BRANCH: master
+  REPO_URL: https://github.com/bianca2190/platform_kernel_xiaomi_vayu
+  REPO_BRANCH: staging/13.0
   COMPER_URL: https://github.com/kdrag0n/proton-clang.git
   CONFIG_FILE: .config
-  EXTERNAL_URL: https://github.com/<username>/Unversial_AndroidKernel_Builder.git
+  EXTERNAL_URL: https://github.com/bianca2190/Unversial_AndroidKernel_Builder.git
   ANYKERNEL_URL: https://github.com/osm0sis/AnyKernel3.git 
-  TZ: Asia/Shanghai
+  TZ: Asia/Jakarta
   ARCH: arm64
   SUBARCH: arm64
-  DEVICE: <devices>
-  DEVICE_FULL: <device>_defconfig
+  DEVICE: vayu
+  DEVICE_FULL: vayu_defconfig
   USE_CCACHE: 1
   CCACHE_DIR: ~/.ccache
   BUILDER: /workdir/toolchain/bin/
@@ -118,8 +118,9 @@ jobs:
     - name: Pack Kernel
       working-directory: /workdir
       run: |
-        cp /workdir/kernel/out/arch/arm64/boot/Image.gz-dtb ./anykernel/Image-dtb
-        
+        cp /workdir/kernel/out/arch/arm64/boot/Image ./anykernel/Image
+        cp /workdir/kernel/out/arch/arm64/boot/dtbo.img ./anykernel/dtbo.img
+        cp /workdir/kernel/out/arch/arm64/boot/dtb.img ./anykernel/dtb.img
         
     - name: Upload Kernel directory
       uses: actions/upload-artifact@main
