@@ -27,16 +27,16 @@ on:
         default: 'false'
 
 env:
-  REPO_URL: https://github.com/SkyFaklist/android_kernel_xiaomi_sm8150.git
-  REPO_BRANCH: miui
+  REPO_URL: https://github.com/bianca2190/platform_kernel_xiaomi_vayu
+  REPO_BRANCH: staging/13.0
   CONFIG_FILE: .config
-  EXTERNAL_URL: https://github.com/SkyFaklist/Unversial_AndroidKernel_Builder.git
+  EXTERNAL_URL: https://github.com/bianca2190/Unversial_AndroidKernel_Builder.git
   ANYKERNEL_URL: https://github.com/osm0sis/AnyKernel3.git 
-  TZ: Asia/Shanghai
+  TZ: Asia/Jakarta
   ARCH: arm64
   SUBARCH: arm64
-  DEVICE: cepheus
-  DEVICE_FULL: cepheus_defconfig
+  DEVICE: vayu
+  DEVICE_FULL: vayu_defconfig
   USE_CCACHE: 1
   CCACHE_DIR: ~/.ccache
   BUILDER: /workdir/tc-build/install/bin/
@@ -125,7 +125,10 @@ jobs:
     - name: Pack Kernel
       working-directory: /workdir
       run: |
-        cp /workdir/kernel/out/arch/arm64/boot/Image.gz-dtb ./anykernel/Image-dtb
+        cp /workdir/kernel/out/arch/arm64/boot/Image ./anykernel/Image
+        cp /workdir/kernel/out/arch/arm64/boot/dtbo.img ./anykernel/dtbo.img
+        cp /workdir/kernel/out/arch/arm64/boot/dtb.img ./anykernel/dtb.img
+
         
         
     - name: Upload Kernel directory
